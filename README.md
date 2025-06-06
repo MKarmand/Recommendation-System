@@ -1,4 +1,4 @@
-# Laporan Proyek Machine Learning - Muhammad Kristover Armand
+# Laporan Proyek Machine Learning
 
 ## Project Overview
 
