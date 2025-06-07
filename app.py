@@ -14,7 +14,7 @@ st.subheader("📂 File tersedia:")
 st.write(os.listdir())  # Melihat file yang tersedia di folder saat ini
 
 try:
-    df = pd.read_csv("anime.csv")  # atau nama file kamu
+    df = pd.read_csv("data.csv")  # atau nama file kamu
     st.write(df.head())
 except Exception as e:
     st.error(f"❌ Gagal memuat data: {e}")
