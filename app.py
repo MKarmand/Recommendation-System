@@ -1,14 +1,24 @@
 import streamlit as st
 import pandas as pd
+import os
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # --- Load dan Persiapkan Data ---
-@st.cache_data
-def load_data():
-    df = pd.read_csv('data.csv')
-    df['Genres'] = df['Genres'].fillna('')
-    return df
+
+
+st.title("🚀 Anime Recommendation System")
+
+# Debug environment
+st.subheader("📂 File tersedia:")
+st.write(os.listdir())  # Melihat file yang tersedia di folder saat ini
+
+try:
+    df = pd.read_csv("anime.csv")  # atau nama file kamu
+    st.write(df.head())
+except Exception as e:
+    st.error(f"❌ Gagal memuat data: {e}")
+
 
 @st.cache_resource
 def build_similarity_matrix(df):
