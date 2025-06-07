@@ -4,36 +4,37 @@ import os
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# --- Judul Aplikasi ---
 st.title("🎌 Anime Recommendation System")
 
-# --- Lihat File yang Tersedia di Direktori ---
+# --- Tampilkan file di direktori saat ini ---
 st.subheader("📂 File tersedia:")
-st.write(os.listdir())  # Debug: Melihat file yang tersedia
+st.write(os.listdir())
 
-# --- Fungsi Load Data dengan Cache ---
+# --- Fungsi untuk load data ---
 @st.cache_data
 def load_data():
-    return pd.read_csv("data.csv")
+    return pd.read_csv("data.csv")  # Pastikan file ini ada
 
-# --- Fungsi Bangun Matriks Similaritas ---
+# --- Fungsi untuk membangun similarity matrix ---
 @st.cache_resource
 def build_similarity_matrix(genres):
     tfidf = TfidfVectorizer(stop_words='english')
-    tfidf_matrix = tfidf.fit_transform(genres.fillna(''))  # Tangani NaN
+    tfidf_matrix = tfidf.fit_transform(genres.fillna(''))
     return cosine_similarity(tfidf_matrix, tfidf_matrix)
 
-# --- Muat Data ---
+# --- Load data & similarity matrix ---
 try:
     df = load_data()
-    st.write("✅ Data berhasil dimuat:")
-    st.dataframe(df.head())
+    st.success("✅ Data berhasil dimuat!")
+    st.write(df.head())
+
     cosine_sim = build_similarity_matrix(df['Genres'])
+
 except Exception as e:
     st.error(f"❌ Gagal memuat data: {e}")
     st.stop()
 
-# --- Fungsi Rekomendasi ---
+# --- Fungsi rekomendasi ---
 def get_recommendations(title, top_n=5):
     indices = pd.Series(df.index, index=df['Title']).drop_duplicates()
     if title not in indices:
@@ -44,12 +45,11 @@ def get_recommendations(title, top_n=5):
     anime_indices = [i[0] for i in sim_scores]
     return df.iloc[anime_indices][['Title', 'Genres', 'Score']]
 
-# --- UI Rekomendasi ---
+# --- UI ---
 st.subheader("🔍 Cari Rekomendasi Anime")
-
 anime_list = sorted(df['Title'].dropna().unique())
 selected_anime = st.selectbox("Pilih Anime", anime_list)
-top_k = st.slider("Jumlah Rekomendasi", min_value=1, max_value=20, value=5)
+top_k = st.slider("Jumlah Rekomendasi", 1, 20, 5)
 
 if st.button("Lihat Rekomendasi"):
     results = get_recommendations(selected_anime, top_n=top_k)
