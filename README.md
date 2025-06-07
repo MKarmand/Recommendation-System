@@ -186,4 +186,3 @@ Berdasarkan daftar anime relevan yang telah didefinisikan untuk "Naruto" dalam k
 
 Evaluasi *Content-Based Filtering* untuk "Naruto" mencapai **kinerja ideal** dalam merekomendasikan anime yang relevan berdasarkan genre. Ini secara signifikan mendukung tujuan proyek untuk mempermudah penemuan tontonan yang sesuai dan meningkatkan akurasi rekomendasi berdasarkan kemiripan konten. Meskipun demikian, evaluasi yang lebih luas dengan variasi judul dan data interaksi pengguna, terutama data rating, diperlukan untuk mengukur kinerja sistem secara keseluruhan dan kemampuannya dalam memberikan rekomendasi yang benar-benar personal seperti yang ditargetkan dalam tujuan proyek.
 
-**---Ini adalah bagian akhir laporan---**
